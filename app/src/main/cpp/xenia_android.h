@@ -3,6 +3,7 @@
 
 #include <jni.h>
 #include <android/log.h>
+#include <memory>
 #include <string>
 
 #define LOG_TAG "XeniaAndroid"
@@ -11,6 +12,16 @@
 #define LOGW(...) __android_log_print(ANDROID_LOG_WARN, LOG_TAG, __VA_ARGS__)
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 
+namespace xe {
+class Memory;
+}
+
+struct AndroidContext {
+    JNIEnv* env = nullptr;
+    jobject context = nullptr;
+    int32_t api_level = 26;
+};
+
 namespace xenia {
 namespace android {
 
@@ -18,6 +29,7 @@ class XeniaAndroid {
 public:
     static XeniaAndroid& GetInstance();
     
+    void SetAndroidContext(JNIEnv* env, jobject context, int32_t api_level);
     bool Initialize();
     void Shutdown();
     
@@ -54,6 +66,9 @@ private:
     bool vulkan_enabled_ = true;
     bool vsync_enabled_ = true;
     bool audio_enabled_ = true;
+    
+    std::unique_ptr<xe::Memory> memory_;
+    std::string current_game_path_;
 };
 
 }

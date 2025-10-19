@@ -7,6 +7,20 @@ extern "C" {
 
 JNIEXPORT jboolean JNICALL
 Java_com_xenia_emulator_native_XeniaNative_initialize(JNIEnv* env, jobject thiz) {
+    jclass context_class = env->FindClass("android/content/Context");
+    if (context_class) {
+        jmethodID get_app_context = env->GetMethodID(context_class, "getApplicationContext", "()Landroid/content/Context;");
+        if (get_app_context) {
+            jobject app_context = env->CallObjectMethod(thiz, get_app_context);
+            if (app_context) {
+                jobject global_context = env->NewGlobalRef(app_context);
+                XeniaAndroid::GetInstance().SetAndroidContext(env, global_context, 26);
+                env->DeleteLocalRef(app_context);
+            }
+        }
+        env->DeleteLocalRef(context_class);
+    }
+    
     return XeniaAndroid::GetInstance().Initialize() ? JNI_TRUE : JNI_FALSE;
 }
 
