@@ -30,6 +30,8 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/cxxopts/include
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/disruptorplus/include
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/microprofile
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/date/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/utfcpp/source
 )
 
 file(GLOB ANDROID_WRAPPER_SOURCES
