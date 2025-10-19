@@ -26,6 +26,10 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/xenia
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmt/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/cpptoml/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/cxxopts/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/disruptorplus/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/microprofile
 )
 
 file(GLOB ANDROID_WRAPPER_SOURCES
