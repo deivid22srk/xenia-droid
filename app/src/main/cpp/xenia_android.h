@@ -69,6 +69,7 @@ private:
     
     std::unique_ptr<xe::Memory> memory_;
     std::string current_game_path_;
+    AndroidContext android_context_;
 };
 
 }

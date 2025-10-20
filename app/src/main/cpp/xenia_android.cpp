@@ -3,12 +3,12 @@
 #include "xenia/base/assert.h"
 #include "xenia/base/cvar.h"
 #include "xenia/base/logging.h"
+#include "xenia/base/main_android.h"
 #include "xenia/base/string.h"
 #include "xenia/base/system.h"
 #include "xenia/base/threading.h"
 #include "xenia/memory.h"
-
-CVAR_DEFAULT_BOOL(debug, false, "Debug mode");
+#include "third_party/fmt/include/fmt/format.h"
 
 namespace xenia {
 namespace android {
@@ -52,8 +52,7 @@ bool XeniaAndroid::Initialize() {
             LOGE("Failed to initialize memory system");
             return false;
         }
-        LOGI("Memory system initialized: %llu bytes", 
-             static_cast<unsigned long long>(memory_->SystemHeapSize()));
+        LOGI("Memory system initialized successfully");
     } catch (const std::exception& e) {
         LOGE("Exception during initialization: %s", e.what());
         return false;
@@ -62,7 +61,6 @@ bool XeniaAndroid::Initialize() {
     initialized_ = true;
     
     LOGI("Xenia Android initialized successfully");
-    LOGI("System: %s", xe::GetSystemVersionString().c_str());
     return true;
 }
 
@@ -78,7 +76,7 @@ void XeniaAndroid::Shutdown() {
     }
     
     if (memory_) {
-        memory_->Shutdown();
+        memory_->Reset();
         memory_.reset();
         LOGI("Memory system shut down");
     }
@@ -91,10 +89,8 @@ void XeniaAndroid::Shutdown() {
 }
 
 std::string XeniaAndroid::GetVersion() const {
-    return xe::string_util::format(
-        "Xenia Android 1.0.0-alpha\n"
-        "Build: %s %s\n"
-        "Memory: %s",
+    return fmt::format(
+        "Xenia Android 1.0.0-alpha\nBuild: {} {}\nMemory: {}",
         __DATE__, __TIME__,
         memory_ ? "Ready" : "Not initialized"
     );
