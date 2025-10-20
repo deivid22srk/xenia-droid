@@ -39,4 +39,16 @@ object XeniaNative {
     external fun extractGameIcon(gamePath: String, outputPath: String): Boolean
     
     external fun getGameTitle(gamePath: String): String?
+    
+    external fun getGameInfo(gamePath: String): GameInfo?
 }
+
+data class GameInfo(
+    val title: String,
+    val titleId: String,
+    val mediaId: String,
+    val version: String,
+    val baseVersion: String,
+    val executableOffset: Long,
+    val certificateOffset: Long
+)

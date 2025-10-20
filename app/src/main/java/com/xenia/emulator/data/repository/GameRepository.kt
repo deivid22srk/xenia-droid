@@ -3,6 +3,7 @@ package com.xenia.emulator.data.repository
 import android.content.Context
 import android.net.Uri
 import android.provider.DocumentsContract
+import android.provider.OpenableColumns
 import com.xenia.emulator.data.model.Game
 import com.xenia.emulator.data.model.GameFileType
 import com.xenia.emulator.native.XeniaNative
@@ -43,6 +44,7 @@ class GameRepository(private val context: Context) {
                     val documentId = c.getString(0)
                     val displayName = c.getString(1)
                     val size = c.getLong(2)
+                    val mimeType = c.getString(3)
                     
                     val extension = displayName.substringAfterLast(".", "")
                     if (supportedExtensions.any { it.endsWith(extension, ignoreCase = true) }) {
