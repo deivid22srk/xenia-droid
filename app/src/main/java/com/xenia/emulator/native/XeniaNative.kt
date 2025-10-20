@@ -35,4 +35,8 @@ object XeniaNative {
     external fun setAudioEnabled(enabled: Boolean)
     
     external fun sendControllerInput(button: Int, pressed: Boolean)
+    
+    external fun extractGameIcon(gamePath: String, outputPath: String): Boolean
+    
+    external fun getGameTitle(gamePath: String): String?
 }

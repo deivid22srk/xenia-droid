@@ -108,6 +108,10 @@ dependencies {
     // Accompanist (System UI Controller)
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
     
+    // Coil for image loading
+    implementation("io.coil-kt.coil3:coil-compose:3.0.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0")
+    
     // Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")

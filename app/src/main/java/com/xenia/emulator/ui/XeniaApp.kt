@@ -19,7 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.xenia.emulator.R
 import com.xenia.emulator.ui.navigation.Screen
 import com.xenia.emulator.ui.screens.AboutScreen
-import com.xenia.emulator.ui.screens.HomeScreen
+import com.xenia.emulator.ui.screens.HomeScreenNew
 import com.xenia.emulator.ui.screens.SettingsScreen
 
 @Composable

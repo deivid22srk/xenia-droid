@@ -1,5 +1,6 @@
 #include <jni.h>
 #include "xenia_android.h"
+#include "xenia_game_utils.h"
 
 using namespace xenia::android;
 
@@ -96,6 +97,34 @@ Java_com_xenia_emulator_native_XeniaNative_setAudioEnabled(JNIEnv* env, jobject 
 JNIEXPORT void JNICALL
 Java_com_xenia_emulator_native_XeniaNative_sendControllerInput(JNIEnv* env, jobject thiz, jint button, jboolean pressed) {
     XeniaAndroid::GetInstance().SendControllerInput(button, pressed == JNI_TRUE);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_xenia_emulator_native_XeniaNative_extractGameIcon(JNIEnv* env, jobject thiz, jstring game_path, jstring output_path) {
+    const char* game_path_str = env->GetStringUTFChars(game_path, nullptr);
+    const char* output_path_str = env->GetStringUTFChars(output_path, nullptr);
+    
+    bool result = ExtractGameIconFromXex(game_path_str, output_path_str);
+    
+    env->ReleaseStringUTFChars(game_path, game_path_str);
+    env->ReleaseStringUTFChars(output_path, output_path_str);
+    
+    return result ? JNI_TRUE : JNI_FALSE;
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_xenia_emulator_native_XeniaNative_getGameTitle(JNIEnv* env, jobject thiz, jstring game_path) {
+    const char* game_path_str = env->GetStringUTFChars(game_path, nullptr);
+    
+    std::string title = GetGameTitleFromXex(game_path_str);
+    
+    env->ReleaseStringUTFChars(game_path, game_path_str);
+    
+    if (title.empty()) {
+        return nullptr;
+    }
+    
+    return env->NewStringUTF(title.c_str());
 }
 
 }

@@ -83,6 +83,10 @@ file(GLOB XENIA_CORE_SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/xenia/config.cc"
 )
 
+file(GLOB XENIA_CPU_SOURCES
+    "${CMAKE_CURRENT_SOURCE_DIR}/xenia/cpu/mmio_handler.cc"
+)
+
 file(GLOB THIRD_PARTY_FMT_SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmt/src/format.cc"
     "${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmt/src/os.cc"
@@ -96,6 +100,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
     ${ANDROID_WRAPPER_SOURCES}
     ${XENIA_BASE_SOURCES}
     ${XENIA_CORE_SOURCES}
+    ${XENIA_CPU_SOURCES}
     ${THIRD_PARTY_FMT_SOURCES}
     ${THIRD_PARTY_XXHASH_SOURCES}
 )
